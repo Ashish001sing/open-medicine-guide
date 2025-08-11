@@ -9,12 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Medicine {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String   @unique
   uses         String
   dosage       String
@@ -24,7 +24,7 @@ model Medicine {
 }
 
 model Disease {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String   @unique
   recommended  String   // Comma-separated medicine names for simplicity
   precautions  String
