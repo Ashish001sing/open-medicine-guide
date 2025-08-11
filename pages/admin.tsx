@@ -1,10 +1,45 @@
 import { useState } from 'react';
 
+const ADMIN_PASSWORD = 'medwise2025'; // Change this to your desired password
+
 export default function Admin() {
+  const [inputPassword, setInputPassword] = useState('');
+  const [accessGranted, setAccessGranted] = useState(false);
+  const [error, setError] = useState('');
   const [csv, setCsv] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (inputPassword === ADMIN_PASSWORD) {
+      setAccessGranted(true);
+      setError('');
+    } else {
+      setError('Incorrect password');
+    }
+  };
+      const [interactions, setInteractions] = useState<string>(''); // comma-separated names
+
+  if (!accessGranted) {
+    return (
+      <div style={{ maxWidth: 400, margin: '80px auto', padding: 24, border: '1px solid #eee', borderRadius: 8 }}>
+        <h2>Admin Login</h2>
+        <form onSubmit={handleLogin}>
+          <input
+            type="password"
+            placeholder="Enter admin password"
+            value={inputPassword}
+            onChange={e => setInputPassword(e.target.value)}
+            style={{ padding: 8, width: '100%', marginBottom: 12 }}
+          />
+          <button type="submit" style={{ padding: '8px 16px' }}>Login</button>
+        </form>
+        {error && <p style={{ color: 'red', marginTop: 8 }}>{error}</p>}
+      </div>
+    );
+  }
 
   // Parse CSV and send to backend
   const parseAndImport = async (csvText: string) => {
