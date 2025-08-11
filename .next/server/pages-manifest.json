@@ -1,8 +1,0 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/api/custom-medicines": "pages/api/custom-medicines.js",
-  "/api/openfda-medicines": "pages/api/openfda-medicines.js"
-}
