@@ -1,0 +1,100 @@
+.detailSection {
+  background: #fff;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  margin-top: 32px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+}
+.container {
+  padding: 2rem;
+  font-family: sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.actions {
+  margin-top: 1.5rem;
+}
+
+.button {
+  background: hsl(212, 100%, 48%);
+  color: white;
+}
+
+/* Main layout */
+.main {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #f9f9fb;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', Arial, sans-serif;}
+
+.searchInput {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  margin-bottom: 1rem;
+}
+.searchInput:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+  
+.mainTitle {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  color: #0070f3;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.buttonSecondary {
+  background: #e2e8f0;
+  color: #333;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.features h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  background: white;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}

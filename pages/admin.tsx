@@ -1,0 +1,74 @@
+import { useState } from 'react';
+
+export default function Admin() {
+  const [csv, setCsv] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+
+  // Parse CSV and send to backend
+  const parseAndImport = async (csvText: string) => {
+    setLoading(true);
+    setMessage('');
+    try {
+      const lines = csvText.trim().split('\n');
+      const headers = lines[0].split(',');
+      const medicines = lines.slice(1).map(line => {
+        const values = line.split(',');
+        const obj: any = {};
+        headers.forEach((h, i) => { obj[h.trim()] = values[i]?.trim() || ''; });
+        return obj;
+      });
+      for (const med of medicines) {
+        await fetch('/api/custom-medicines', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(med),
+        });
+      }
+      setMessage('Import successful!');
+    } catch (err: any) {
+      setMessage('Import failed: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImport = async () => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async e => {
+        const text = e.target?.result as string;
+        await parseAndImport(text);
+      };
+      reader.readAsText(file);
+    } else {
+      await parseAndImport(csv);
+    }
+  };
+
+  return (
+    <main style={{ maxWidth: 600, margin: '40px auto', padding: 32, background: '#f9f9fb', borderRadius: 16 }}>
+      <h1>Admin: Bulk Import Medicines</h1>
+      <p>Paste CSV with columns: name, uses, dosage, sideEffects, prohibited, warnings</p>
+      <input
+        type="file"
+        accept=".csv"
+        style={{ marginBottom: 16 }}
+        onChange={e => setFile(e.target.files?.[0] || null)}
+      />
+      <div style={{ marginBottom: 16 }}>or paste CSV below:</div>
+      <textarea
+        rows={10}
+        style={{ width: '100%', marginBottom: 16 }}
+        value={csv}
+        onChange={e => setCsv(e.target.value)}
+        placeholder="name,uses,dosage,sideEffects,prohibited,warnings\nParacetamol,Fever relief,500mg,Nausea,Liver disease,Max 4g/day"
+      />
+      <button onClick={handleImport} disabled={loading || !csv.trim()} style={{ padding: '8px 16px', marginBottom: 16 }}>
+        {loading ? 'Importing...' : 'Import Medicines'}
+      </button>
+      {message && <p>{message}</p>}
+    </main>
+  );
+}
